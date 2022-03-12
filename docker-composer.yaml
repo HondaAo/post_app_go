@@ -1,0 +1,27 @@
+version: '3.9'
+
+services: 
+    backend:
+      build: . 
+      ports: 
+        -  8000:3000
+      volumes: 
+        -  .:/app 
+      depends_on: 
+        - db
+        - redis
+    
+    postgres:
+     container_name: postgres
+     build:
+       context: .
+       dockerfile: ./docker/postgres/Dockerfile
+     environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=postgres
+       - POSTGRES_DB=gorm
+
+    redis:
+      image: redis:latest
+      ports: 
+        - 6379:6379
