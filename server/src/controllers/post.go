@@ -39,7 +39,7 @@ func GetPost(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	post.Id = uint(id)
 
-	database.DB.Find(&post)
+	database.DB.Preload("Replies").Preload("Vote").Find(&post)
 
 	return c.JSON(post)
 }
@@ -65,4 +65,23 @@ func DeletePost(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "Deleted.",
 	})
+}
+
+func CreateComment(c *fiber.Ctx) error {
+	var comment models.Reply
+
+	if err := c.BodyParser(&comment); err != nil {
+		return err
+	}
+
+	id, _ := middleware.GetUserId(c)
+	comment.UserId = id
+
+	post_id, _ := strconv.Atoi(c.Params("id"))
+	comment.PostId = uint(post_id)
+
+	database.DB.Create(&comment)
+
+	return c.JSON(comment)
+
 }

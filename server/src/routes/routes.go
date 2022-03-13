@@ -18,6 +18,7 @@ func Routes(app *fiber.App) {
 	loginUser := api.Use(middleware.IsAuthenticated)
 	loginUser.Post("create_post", controllers.CreatePost)
 	loginUser.Delete("delete_post/:id", controllers.DeletePost)
+	loginUser.Post("comment/:id", controllers.CreateComment)
 	api.Get("posts", controllers.Posts)
 	api.Get("post/:id", controllers.GetPost)
 

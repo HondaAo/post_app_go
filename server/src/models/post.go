@@ -1,10 +1,20 @@
 package models
 
-type Post struct {
+type Record struct {
 	Base
-	Title  string `json:"title"`
 	Text   string `json:"text"`
-	Points int    `json:"points"`
 	UserId uint   `json:"user_id"`
-	Vote   []Vote `json:"votes" gorm:"foreignKey:PostId"`
+}
+
+type Post struct {
+	Record
+	Title   string  `json:"title"`
+	Points  int     `json:"points"`
+	Vote    []Vote  `json:"votes" gorm:"foreignKey:PostId"`
+	Replies []Reply `json:"replies" gorm:"foreignKey:PostId"`
+}
+
+type Reply struct {
+	Record
+	PostId uint `json:"post_id"`
 }
