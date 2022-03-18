@@ -28,9 +28,13 @@ func CreatePost(c *fiber.Ctx) error {
 func Posts(c *fiber.Ctx) error {
 	var posts []models.Post
 
-	database.DB.Preload("Vote").Find(&posts)
+	database.DB.Preload("Replies").Preload("Vote").Find(&posts)
 
 	return c.JSON(posts)
+}
+
+func SortPost(c *fiber.Ctx) {
+
 }
 
 func GetPost(c *fiber.Ctx) error {
@@ -39,7 +43,54 @@ func GetPost(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	post.Id = uint(id)
 
-	database.DB.Preload("Replies").Preload("Vote").Find(&post)
+	database.DB.Preload("Tags").Preload("Replies").Preload("Vote").Find(&post)
+
+	return c.JSON(post)
+}
+
+func CreateTag(c *fiber.Ctx) error {
+	var tag models.Tag
+
+	if err := c.BodyParser(&tag); err != nil {
+		return err
+	}
+
+	database.DB.Create(&tag)
+
+	return c.JSON(tag)
+}
+
+func Tags(c *fiber.Ctx) error {
+	var tags []models.Tag
+
+	database.DB.Preload("Post").Find(&tags)
+
+	return c.JSON(tags)
+}
+
+func GetTag(tag_id int) (models.Tag, error) {
+	var tag models.Tag
+
+	database.DB.Find(&tag, tag_id)
+
+	return tag, nil
+}
+
+func AddTags(c *fiber.Ctx) error {
+	var data map[string]string
+	if err := c.BodyParser(&data); err != nil {
+		return err
+	}
+
+	var post models.Post
+
+	id, _ := strconv.Atoi(c.Params("id"))
+	tag_id, _ := strconv.Atoi(c.Params("tag_id"))
+	post.Id = uint(id)
+
+	tag, _ := GetTag(tag_id)
+
+	database.DB.Find(&post).Association("Tags").Append(&tag)
 
 	return c.JSON(post)
 }

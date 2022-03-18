@@ -31,5 +31,5 @@ func Connect() {
 }
 
 func AutoMigrate() {
-	DB.AutoMigrate(&models.User{}, &models.Post{}, &models.Vote{}, &models.Reply{})
+	DB.AutoMigrate(&models.User{}, &models.Post{}, &models.Vote{}, &models.Reply{}, &models.Tag{})
 }

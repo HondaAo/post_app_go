@@ -12,6 +12,7 @@ require (
 	github.com/jaswdr/faker v1.10.2 // indirect
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
+	github.com/rs/cors v1.8.2
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect

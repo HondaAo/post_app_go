@@ -18,9 +18,12 @@ func Routes(app *fiber.App) {
 	loginUser := api.Use(middleware.IsAuthenticated)
 	loginUser.Post("create_post", controllers.CreatePost)
 	loginUser.Delete("delete_post/:id", controllers.DeletePost)
-	loginUser.Post("comment/:id", controllers.CreateComment)
+	loginUser.Post("comment/:id/reply/:rep_id", controllers.CreateComment)
+	loginUser.Post("create_tag", controllers.CreateTag)
+	loginUser.Put("add_tag/:id/tags/:tag_id", controllers.AddTags)
 	api.Get("posts", controllers.Posts)
 	api.Get("post/:id", controllers.GetPost)
+	api.Get("tags", controllers.Tags)
 
 	loginUser.Post("vote", controllers.Vote)
 }

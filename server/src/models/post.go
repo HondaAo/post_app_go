@@ -10,8 +10,15 @@ type Post struct {
 	Record
 	Title   string  `json:"title"`
 	Points  int     `json:"points"`
+	Tags    []Tag   `json:"tags" gorm:"many2many:post_tags;"`
 	Vote    []Vote  `json:"votes" gorm:"foreignKey:PostId"`
 	Replies []Reply `json:"replies" gorm:"foreignKey:PostId"`
+}
+
+type Tag struct {
+	Base
+	Text string `json:"text"`
+	Post []Post `json:"posts" gorm:"many2many:post_tags;"`
 }
 
 type Reply struct {
