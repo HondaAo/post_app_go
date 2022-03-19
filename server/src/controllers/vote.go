@@ -28,7 +28,6 @@ func Vote(c *fiber.Ctx) error {
 
 	if count := database.DB.Where(&models.Vote{UserId: userId}, &models.Vote{PostId: uint(postId)}).First(&vote); count.RowsAffected > 0 {
 		if vote.Value == value {
-			log.Print("voted")
 			return c.JSON(vote)
 		}
 

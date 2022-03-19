@@ -1,5 +1,1 @@
 package controllers
-
-func GetFavoritePost() {
-
-}
