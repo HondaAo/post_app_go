@@ -28,7 +28,21 @@ func CreatePost(c *fiber.Ctx) error {
 func Posts(c *fiber.Ctx) error {
 	var posts []models.Post
 
-	database.DB.Preload("Replies").Preload("Vote").Find(&posts)
+	database.DB.Preload("Vote").Order("created_at").Find(&posts)
+
+	return c.JSON(posts)
+}
+
+func PostIndex(c *fiber.Ctx) error {
+	var posts []models.Post
+	page, _ := strconv.Atoi(c.Params("page"))
+
+	limit := page * 10
+	realLimit := (page - 1) * 10
+
+	database.DB.Preload("Vote").Order("created_at").Limit(limit).Find(&posts)
+
+	posts = posts[realLimit:]
 
 	return c.JSON(posts)
 }

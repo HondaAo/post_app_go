@@ -49,11 +49,7 @@ func Login(c *fiber.Ctx) error {
 
 	var user models.User
 
-	log.Print(user)
-
 	database.DB.Where("email = ?", data["email"]).First(&user)
-
-	log.Print(user)
 
 	if user.Id == 0 {
 		c.Status(fiber.StatusBadRequest)
@@ -111,6 +107,12 @@ func Me(c *fiber.Ctx) error {
 	var user models.User
 
 	database.DB.Where("id = ?", id).Preload("Posts").Preload("Votes").First(&user)
+
+	if user.Id == 0 {
+		return c.JSON(fiber.Map{
+			"message": "not authed",
+		})
+	}
 
 	return c.JSON(user)
 }

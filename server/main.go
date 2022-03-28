@@ -13,7 +13,9 @@ func main() {
 	database.AutoMigrate()
 
 	app := fiber.New()
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowCredentials: true,
+	}))
 	routes.Routes(app)
 
 	app.Listen(":4000")

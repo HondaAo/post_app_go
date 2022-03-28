@@ -9,12 +9,12 @@ import (
 
 func Routes(app *fiber.App) {
 	api := app.Group("api")
-	user := api.Group("user")
-
 	api.Get("posts", controllers.Posts)
+	api.Get("post_index/:page", controllers.PostIndex)
 	api.Get("post/:id", controllers.GetPost)
 	api.Get("tags", controllers.Tags)
 
+	user := api.Group("user")
 	user.Post("register", controllers.Register)
 	user.Post("login", controllers.Login)
 	user.Get("logout", controllers.Logout)

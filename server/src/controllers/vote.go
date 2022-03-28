@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"new_go_app/src/database"
 	"new_go_app/src/middleware"
 	"new_go_app/src/models"
@@ -16,7 +15,6 @@ func Vote(c *fiber.Ctx) error {
 		return err
 	}
 
-	log.Print(data)
 	userId, _ := middleware.GetUserId(c)
 	postId := data["post_id"]
 	value := data["value"]
@@ -48,5 +46,7 @@ func Vote(c *fiber.Ctx) error {
 	post.Points += value
 	database.DB.Save(&post)
 
-	return c.JSON(vote)
+	return c.JSON(fiber.Map{
+		"points": post.Points,
+	})
 }
