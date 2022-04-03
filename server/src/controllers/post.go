@@ -37,6 +37,10 @@ func PostIndex(c *fiber.Ctx) error {
 	var posts []models.Post
 	page, _ := strconv.Atoi(c.Params("page"))
 
+	if page == 0 {
+		page = 1
+	}
+
 	limit := page * 10
 	realLimit := (page - 1) * 10
 

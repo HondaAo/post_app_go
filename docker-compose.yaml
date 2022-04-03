@@ -1,0 +1,41 @@
+version: '3.9'
+
+services: 
+    backend:
+      build:
+        context: .
+        dockerfile: ./server/Dockerfile
+      container_name: go_container
+      ports: 
+        -  8000:8000
+      volumes: 
+        -  ./server:/app/go 
+      depends_on: 
+        - postgres 
+        - redis
+    react:
+      build:
+        context: .
+        dockerfile: ./web/Dockerfile
+      container_name: react_container
+      tty: true
+      volumes:
+        - ./web:/app/react
+      command: sh -c "cd /app/react && yarn install && yarn start"
+      ports:
+        - 3000:3000
+    postgres:
+      image: postgres:14
+      container_name: postgres
+      ports: 
+        - 5432:5432
+      volumes:
+      - ./db-store:/var/lib/postgresql/data
+      environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=postgres
+       - POSTGRES_DB=gorm
+    redis:
+      image: redis:latest
+      ports: 
+        - 6379:6379

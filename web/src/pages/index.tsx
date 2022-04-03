@@ -7,11 +7,15 @@ import { Post } from '../interface'
 import axios from 'axios'
 import { url } from './_app'
 import { PostComponent } from '../components/Post'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const [ posts, setPosts ] = useState<Post[]>([])
+  const router = useRouter();
+  const page = router.query
+  console.log(page)
   useEffect(() => {
-  axios.get(`${url}/api/posts`, {
+  axios.get(`${url}/api/post_index/2`, {
     withCredentials: true
   })
   .then(res => {
