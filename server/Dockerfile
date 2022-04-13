@@ -1,8 +1,10 @@
 FROM golang:1.16
 
+RUN mkdir -p /app/server
 WORKDIR /app/server
 
-COPY go.mod go.sum ./
+COPY go.mod /app/server/
+COPY go.sum /app/server/
 RUN go mod download
 
 COPY . .

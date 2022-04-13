@@ -6,6 +6,7 @@ import (
 	"new_go_app/src/database"
 	"new_go_app/src/middleware"
 	"new_go_app/src/models"
+	"os"
 	"strconv"
 	"time"
 
@@ -44,12 +45,19 @@ func Register(c *fiber.Ctx) error {
 func Login(c *fiber.Ctx) error {
 	var data map[string]string
 	if err := c.BodyParser(&data); err != nil {
+		log.Print(err)
 		return err
 	}
 
 	var user models.User
 
-	database.DB.Where("email = ?", data["email"]).First(&user)
+	env := os.Getenv("ENV")
+
+	if env == "Development" {
+		database.DB.Where("email = ?", data["email"]).First(&user)
+	} else {
+		database.DB_TEST.Where("email = ?", data["email"]).First(&user)
+	}
 
 	if user.Id == 0 {
 		c.Status(fiber.StatusBadRequest)

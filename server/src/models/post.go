@@ -7,7 +7,9 @@ type Record struct {
 }
 
 type Post struct {
-	Record
+	Base
+	Text    string  `json:"text"`
+	UserId  uint    `json:"user_id"`
 	Title   string  `json:"title"`
 	Points  int     `json:"points"`
 	Tags    []Tag   `json:"tags" gorm:"many2many:post_tags;"`
@@ -22,6 +24,8 @@ type Tag struct {
 }
 
 type Reply struct {
-	Record
-	PostId uint `json:"post_id"`
+	Base
+	Text   string `json:"text"`
+	UserId uint   `json:"user_id"`
+	PostId uint   `json:"post_id"`
 }

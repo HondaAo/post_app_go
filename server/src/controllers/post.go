@@ -4,6 +4,7 @@ import (
 	"new_go_app/src/database"
 	"new_go_app/src/middleware"
 	"new_go_app/src/models"
+	"os"
 	"strconv"
 
 	fiber "github.com/gofiber/fiber/v2"
@@ -61,7 +62,13 @@ func GetPost(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	post.Id = uint(id)
 
-	database.DB.Preload("Tags").Preload("Replies").Preload("Vote").Find(&post)
+	env := os.Getenv("ENV")
+
+	if env == "Development" {
+		database.DB.Preload("Tags").Preload("Replies").Preload("Vote").Find(&post)
+	} else {
+		database.DB_TEST.Preload("Tags").Preload("Replies").Preload("Vote").Find(&post)
+	}
 
 	return c.JSON(post)
 }
