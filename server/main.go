@@ -1,8 +1,8 @@
 package main
 
 import (
-	"new_go_app/src/database"
-	"new_go_app/src/routes"
+	"new_go_app/server/src/database"
+	"new_go_app/server/src/routes"
 	"os"
 
 	"github.com/gofiber/fiber/v2"

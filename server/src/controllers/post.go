@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"new_go_app/src/database"
-	"new_go_app/src/middleware"
-	"new_go_app/src/models"
+	"new_go_app/server/src/database"
+	"new_go_app/server/src/middleware"
+	"new_go_app/server/src/models"
 	"os"
 	"strconv"
 

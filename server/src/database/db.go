@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
-	"new_go_app/src/models"
+	"new_go_app/server/src/models"
 	"os"
 
 	"gorm.io/driver/postgres"

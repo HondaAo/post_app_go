@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"new_go_app/src/controllers"
-	"new_go_app/src/middleware"
+	"new_go_app/server/src/controllers"
+	"new_go_app/server/src/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )

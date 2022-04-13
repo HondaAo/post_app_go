@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/http/httptest"
-	"new_go_app/src/database"
-	"new_go_app/src/models"
-	"new_go_app/src/routes"
+	"new_go_app/server/src/database"
+	"new_go_app/server/src/models"
+	"new_go_app/server/src/routes"
 	"os"
 	"testing"
 
