@@ -3,11 +3,11 @@ version: '3.9'
 services: 
     backend:
       build:
-        context: .
         dockerfile: ./server/Dockerfile
+        context: .
       container_name: go_container
       ports: 
-        -  8000:8000
+        -  4000:4000
       volumes: 
         -  ./server:/app/go 
       depends_on: 
@@ -21,7 +21,7 @@ services:
       tty: true
       volumes:
         - ./web:/app/react
-      command: sh -c "cd /app/react && yarn install && yarn start"
+      command: sh -c "cd /app/react && npm run dev"
       ports:
         - 3000:3000
     postgres:
