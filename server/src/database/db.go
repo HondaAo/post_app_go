@@ -15,7 +15,7 @@ var DB *gorm.DB
 func Connect() {
 	var err error
 
-	dsn := fmt.Sprintf("host=localhost user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo",
+	dsn := fmt.Sprintf("host=postgres user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo",
 		"postgres", "postgres", "gorm", "5432")
 
 	log.Print("Connecting to PostgreSQL DB...")

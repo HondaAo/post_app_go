@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const page = router.query
   console.log(page)
   useEffect(() => {
-  axios.get(`${url}/api/post_index/2`, {
+  axios.get(`${url}/api/posts`, {
     withCredentials: true
   })
   .then(res => {

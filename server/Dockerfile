@@ -1,13 +1,15 @@
-FROM golang:1.16
+FROM golang:1.18
 
 RUN mkdir -p /app/server
 WORKDIR /app/server
 
-COPY go.mod /app/server/
-COPY go.sum /app/server/
-RUN go mod download
+COPY ./server/go.mod .
+COPY ./server/go.sum .
 
-COPY . .
+RUN go mod download
+RUN go mod tidy
+
+COPY ./server .
 
 EXPOSE 4000
 # binary will be $(go env GOPATH)/bin/air
