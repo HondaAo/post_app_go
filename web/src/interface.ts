@@ -4,11 +4,12 @@ export interface User {
     updated_at: string,
     username: string,
     email: string,
-    posts: Post[],
+    bio: string,
+    posts: PostProps[],
     votes: Vote[]
 }
 
-export interface Post {
+export interface PostProps {
     id: number,
     created_at: string,
     updated_at: string,

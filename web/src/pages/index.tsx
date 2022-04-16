@@ -3,19 +3,18 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from '../../styles/Home.module.css'
 import Layout from '../components/Layouts'
-import { Post } from '../interface'
+import { PostProps } from '../interface'
 import axios from 'axios'
-import { url } from './_app'
 import { PostComponent } from '../components/Post'
 import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
-  const [ posts, setPosts ] = useState<Post[]>([])
+  const [ posts, setPosts ] = useState<PostProps[]>([])
   const router = useRouter();
   const page = router.query
   console.log(page)
   useEffect(() => {
-  axios.get(`${url}/api/posts`, {
+  axios.get(`/api/posts`, {
     withCredentials: true
   })
   .then(res => {

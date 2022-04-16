@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react' 
-import { Post }  from '../interface' 
+import React, { useContext, useEffect } from 'react' 
+import { PostProps }  from '../interface' 
 import Image from 'next/image'
 import axios from 'axios'
-import { url } from '../pages/_app'
 import { useRouter } from 'next/router'
 import { route } from 'next/dist/server/router'
+import { AuthContext } from '../auth'
 
-interface PostProps {
-    post: Post
+interface PostProp {
+    post: PostProps
 }
 
-export const PostComponent: React.FC<PostProps> = ({post}) =>{
-    const router = useRouter()
+export const PostComponent: React.FC<PostProp> = ({post}) =>{
+    const router = useRouter();
     const isAuth = async() => {
-        const response = await axios.get(`${url}/api/user/me`, { withCredentials: true })
+        const response = await axios.get(`/api/user/me`, { withCredentials: true })
         if(response.data.message == "not authed"){
            return false
         }
@@ -22,7 +22,7 @@ export const PostComponent: React.FC<PostProps> = ({post}) =>{
     const upVote = async (id: number) => {
         const auth = await isAuth() 
         if(auth){
-        const res = await axios.post(`${url}/api/vote`,{
+        const res = await axios.post(`/api/vote`,{
             post_id: id,
             value: 1
         }, { withCredentials: true})
@@ -36,7 +36,7 @@ export const PostComponent: React.FC<PostProps> = ({post}) =>{
     }
     const downVote = async (id: number) => {
         await isAuth()
-        const res = await axios.post(`${url}/api/vote`, {
+        const res = await axios.post(`/api/vote`, {
             post_id: id,
             value: -1
         }, { withCredentials: true})
@@ -45,15 +45,16 @@ export const PostComponent: React.FC<PostProps> = ({post}) =>{
             post.points = res.data.points
         }
     }
+    console.log(post)
     return (
         <div className="flex w-full max-w-sm my-2 border-t border-b border-l border-gray-400 lg:max-w-full">
          <div className='w-1/12 bg-gray-50' style={{ 'textAlignLast': 'center', 'alignSelf': 'center'}}>
              <div>
-                 <Image src='/up-arrow-icon.png' height="60" width="60" alt='' onClick={() => upVote(post.id)} />
+             <Image src='/up-arrow-icon.png'id='upvote' height="60" width="60" alt='' onClick={() => upVote(post.id)} />
              </div>
              <div>{post.points}</div>
              <div>
-             <Image src='/down-arrow-icon.png' height="60" width="60" alt='' onClick={() => downVote(post.id)} />
+             <Image src='/down-arrow-icon.png' id='downvote' height="60" width="60" alt='' onClick={() => downVote(post.id)} />
              </div>
          </div>
          <div className="flex flex-col justify-between w-11/12 p-4 leading-normal bg-white border-b border-r border-gray-400 rounded-b lg:border-t lg:border-gray-400 lg:rounded-b-none lg:rounded-r">

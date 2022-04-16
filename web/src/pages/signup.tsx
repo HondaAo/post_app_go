@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react' 
 import Layout from '../components/Layouts';
-import { url } from './_app';
 
 
 const Signup = () =>{
@@ -12,7 +11,7 @@ const Signup = () =>{
     const router = useRouter()
     const submit = async(e: any) => {
         e.preventDefault()
-        const res = await axios.post(`${url}/api/user/register`, {
+        const res = await axios.post(`/api/user/register`, {
             username,
             email,
             password,
@@ -23,7 +22,7 @@ const Signup = () =>{
         }
     }
     useEffect(() => {
-    axios.get(`${url}/api/user/me`, {
+    axios.get(`/api/user/me`, {
         withCredentials: true
     })
     .then(res => {

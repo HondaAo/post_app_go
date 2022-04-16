@@ -45,7 +45,7 @@ export const Header = () => {
                 Home
               </a>
             </Link>
-            {!currentUser && (
+            {!currentUser ? (
             <>
             <Link href='/login'>
               <a className='items-center justify-center w-full px-3 py-2 font-bold text-white rounded lg:inline-flex lg:w-auto hover:bg-blue-600 hover:text-white'>
@@ -58,6 +58,12 @@ export const Header = () => {
               </a>
             </Link>
             </>
+            ) : (
+               <Link href='/mypage'>
+                <a className='items-center justify-center w-full px-3 py-2 font-bold text-white rounded lg:inline-flex lg:w-auto hover:bg-blue-600 hover:text-white'>
+                 Mypage
+                </a>
+              </Link> 
             ) }
           </div>
         </div>

@@ -1,17 +1,16 @@
-FROM node:latest
+FROM node:14.17.0
 
 ENV PORT 3000
 
 # Create app directory
-RUN mkdir -p /app/web
-WORKDIR /app/web
+WORKDIR /app
 
 # Installing dependencies
-COPY package*.json /app/web
+COPY package*.json /app
 RUN npm install
 
 # Copying source files
-COPY . /app/web
+COPY . /app
 
 # Building app
 EXPOSE 3000

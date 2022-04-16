@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react' 
 import { User } from './interface';
-import { url } from './pages/_app';
 
 type AuthContextProps = {
     currentUser: User | null | undefined;
@@ -12,7 +11,7 @@ export const AuthContext = createContext<AuthContextProps>({currentUser: undefin
 const AuthProvider: React.FC = ({children}) =>{
     const [ currentUser, setCurrentUser ] = useState<User | null | undefined>(undefined)
     useEffect(() => {
-        axios.get(`${url}/api/user/me`, { withCredentials: true})
+        axios.get(`/api/user/me`, { withCredentials: true})
         .then((res) => {
         if(res.data.message == 'not authed'){
           setCurrentUser(null)
