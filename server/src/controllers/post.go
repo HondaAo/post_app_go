@@ -144,20 +144,28 @@ func DeletePost(c *fiber.Ctx) error {
 }
 
 func CreateComment(c *fiber.Ctx) error {
-	var comment models.Reply
-
-	if err := c.BodyParser(&comment); err != nil {
+	var data map[string]string
+	if err := c.BodyParser(&data); err != nil {
 		return err
 	}
+
+	var comment models.Reply
 
 	id, _ := middleware.GetUserId(c)
 	comment.UserId = id
 
-	post_id, _ := strconv.Atoi(c.Params("id"))
-	comment.PostId = uint(post_id)
+	if data["toType"] == "post" {
+		post_id, _ := strconv.Atoi(c.Params("id"))
+		comment.PostId = uint(post_id)
+	} else {
+		post_id, _ := strconv.Atoi(c.Params("id"))
+		comment.PostId = uint(post_id)
+		reply_id, _ := strconv.Atoi(data["reply_id"])
+		comment.ReplyId = uint(reply_id)
+	}
 
+	comment.Text = data["text"]
 	database.DB.Create(&comment)
 
 	return c.JSON(comment)
-
 }

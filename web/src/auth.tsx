@@ -19,7 +19,7 @@ const AuthProvider: React.FC = ({children}) =>{
           setCurrentUser(res.data)
         }})
         .catch(err => console.log(err)) 
-    },[])
+    },[currentUser])
     return (
       <AuthContext.Provider value={{currentUser}}>
           {children}

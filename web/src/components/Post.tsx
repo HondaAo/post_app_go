@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { route } from 'next/dist/server/router'
 import { AuthContext } from '../auth'
+import Link from 'next/link'
 
 interface PostProp {
     post: PostProps
@@ -45,7 +46,6 @@ export const PostComponent: React.FC<PostProp> = ({post}) =>{
             post.points = res.data.points
         }
     }
-    console.log(post)
     return (
         <div className="flex w-full max-w-sm my-2 border-t border-b border-l border-gray-400 lg:max-w-full">
          <div className='w-1/12 bg-gray-50' style={{ 'textAlignLast': 'center', 'alignSelf': 'center'}}>
@@ -66,7 +66,10 @@ export const PostComponent: React.FC<PostProp> = ({post}) =>{
                Members only
              </p>
              <div className="mb-2 text-xl font-bold text-gray-900">{post.title}</div>
-             <p className="text-base text-gray-700">{post.text}</p>
+             <Link href={`/posts/${post.id}`}>
+             <a>
+             <p className="text-base text-gray-700">{post.text}</p></a>
+             </Link>
            </div>
            <div className="flex items-center">
              <div className="text-sm">

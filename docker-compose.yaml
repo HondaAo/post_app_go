@@ -9,7 +9,7 @@ services:
       ports: 
         -  4000:4000
       volumes: 
-        -  ./server:/app/go 
+        -  ./server:/app
       depends_on: 
         - postgres 
         - redis
@@ -20,8 +20,8 @@ services:
       container_name: react_container
       tty: true
       volumes:
-        - ./web:/app/react
-      command: sh -c "cd /app/react && npm run dev"
+        - ./web:/app
+      command: sh -c "cd /app && npm run dev"
       ports:
         - 3000:3000
     postgres:

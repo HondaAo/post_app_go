@@ -23,16 +23,12 @@ func TestMain(m *testing.M) {
 	os.Setenv("ENV", "Test")
 
 	os.Exit(m.Run())
-
 }
 
 func TestFiber(t *testing.T) {
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		fmt.Println(c.BaseURL())              // => http://google.com
-		fmt.Println(c.Get("X-Custom-Header")) // => hi
-
 		return c.SendString("hello, World!")
 	})
 
@@ -138,7 +134,6 @@ func TestLogin(t *testing.T) {
 	for _, v := range samples {
 		req := httptest.NewRequest("POST", "/api/user/login", bytes.NewBufferString(v.inputJSON))
 		req.Header.Set("Content-Type", "application/json")
-		log.Print(req)
 
 		res, err := app.Test(req)
 
@@ -165,22 +160,3 @@ func TestGetPost(t *testing.T) {
 
 	assert.Equal(t, 200, res.StatusCode)
 }
-
-// func CreatePostTest(t *testing.T) {
-// 	app := fiber.New()
-
-// 	routes.Routes(app)
-
-// 	arg := models.Post{
-// 		Title: "title",
-// 		Text:  "text",
-// 	}
-
-// 	jsonBody, _ := json.Marshal(arg)
-// 	readerBody := bytes.NewBuffer(jsonBody)
-
-// 	req, _ := http.NewRequest(http.MethodPost, "/api/", readerBody)
-// 	req.Header.Set("Content-Type", "application/json")
-
-// 	err := controllers.CreatePost(req)
-// }

@@ -4,7 +4,6 @@ import { AuthContext } from '../auth';
 
 export const Header = () => {
   const {currentUser} = useContext(AuthContext)
-  console.log(currentUser)
   return (
     <>
       <nav className='flex flex-wrap items-center p-3 bg-blue-400 '>

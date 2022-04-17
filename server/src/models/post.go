@@ -25,7 +25,8 @@ type Tag struct {
 
 type Reply struct {
 	Base
-	Text   string `json:"text"`
-	UserId uint   `json:"user_id"`
-	PostId uint   `json:"post_id"`
+	Text    string `json:"text"`
+	UserId  uint   `json:"user_id"`
+	PostId  uint   `json:"post_id"`
+	ReplyId uint   `json:"reply_id"`
 }

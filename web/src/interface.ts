@@ -17,9 +17,20 @@ export interface PostProps {
     text: string,
     title: string,
     user_id: number,
-    replies: null,
+    replies: ReplyProps[],
     votes: null
 }
+
+export interface ReplyProps {
+    id: number,
+    created_at: string,
+    updated_at: string, 
+    user_id: number,
+    post_id: number,
+    reply_id: number,
+    text: string
+}
+
 export interface Vote {
     id: number,
     created_at: string,

@@ -12,7 +12,6 @@ const Home: NextPage = () => {
   const [ posts, setPosts ] = useState<PostProps[]>([])
   const router = useRouter();
   const page = router.query
-  console.log(page)
   useEffect(() => {
   axios.get(`/api/posts`, {
     withCredentials: true
