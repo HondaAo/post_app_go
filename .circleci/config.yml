@@ -9,7 +9,7 @@ executors:
       - image: circleci/golang:<< parameters.go-version >>
         environment:
           GO111MODULE: "on"
-    working_directory: /app/go
+    working_directory: /repo/go
 
 commands:
   go_mod_download:
@@ -44,13 +44,6 @@ jobs:
 
       - go_mod_download
 
-      - run:
-          name: Install GolangCI-Lint
-          command: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v<< parameters.golangci-lint-version >>
-
-      - run:
-          name: Run GolangCI-Lint
-          command: ./bin/golangci-lint run --tests --disable-all --enable=goimports --enable=golint --enable=govet --enable=errcheck --enable=staticcheck
       - run:
           name: Run Tests
           command: cd server && go test -race -v ./...
