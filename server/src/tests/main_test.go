@@ -54,11 +54,11 @@ func migrateUserTable() error {
 
 func migratePostTable() error {
 	database.Conn()
-	err := database.DB_TEST.Migrator().DropTable(&models.Post{})
+	err := database.DB_TEST.Migrator().DropTable(&models.Post{}, &models.Reply{}, &models.Vote{})
 	if err != nil {
 		log.Print("DR ERROR")
 	}
-	err = database.DB_TEST.AutoMigrate(&models.Post{})
+	err = database.DB_TEST.AutoMigrate(&models.Post{}, &models.Reply{}, &models.Vote{})
 	if err != nil {
 		log.Print("MG Error")
 	}
@@ -131,16 +131,11 @@ func TestLogin(t *testing.T) {
 		},
 	}
 
-	for _, v := range samples {
-		req := httptest.NewRequest("POST", "/api/user/login", bytes.NewBufferString(v.inputJSON))
-		req.Header.Set("Content-Type", "application/json")
-
-		res, err := app.Test(req)
-
-		utils.AssertEqual(t, nil, err)
-		utils.AssertEqual(t, 200, res.StatusCode)
-	}
-
+	req := httptest.NewRequest("POST", "/api/user/login", bytes.NewBufferString(samples[0].inputJSON))
+	req.Header.Set("Content-Type", "application/json")
+	res, err := app.Test(req)
+	utils.AssertEqual(t, nil, err)
+	utils.AssertEqual(t, 200, res.StatusCode)
 }
 
 func TestGetPost(t *testing.T) {
