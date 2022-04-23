@@ -20,6 +20,7 @@ commands:
             - go-modules-{{ checksum "server/go.sum" }}
 
       - run: go mod download
+      - run: go mod tidy
 
       - save_cache:
           name: Save go modules cache
