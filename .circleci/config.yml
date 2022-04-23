@@ -9,7 +9,7 @@ executors:
       - image: circleci/golang:<< parameters.go-version >>
         environment:
           GO111MODULE: "on"
-    working_directory: /repo/go
+    working_directory: ~/repo
 
 commands:
   go_mod_download:
