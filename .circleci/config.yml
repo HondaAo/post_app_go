@@ -9,7 +9,7 @@ executors:
       - image: circleci/golang:<< parameters.go-version >>
         environment:
           GO111MODULE: "on"
-    working_directory: /go/src/d-kuro/go-sandbox
+    working_directory: /app/go
 
 commands:
   go_mod_download:
@@ -17,7 +17,7 @@ commands:
       - restore_cache:
           name: Restore go modules cache
           keys:
-            - go-modules-{{ checksum "go.sum" }}
+            - go-modules-{{ checksum "server/go.sum" }}
 
       - run: go mod download
 
@@ -53,7 +53,7 @@ jobs:
           command: ./bin/golangci-lint run --tests --disable-all --enable=goimports --enable=golint --enable=govet --enable=errcheck --enable=staticcheck
       - run:
           name: Run Tests
-          command: go test -race -v ./...
+          command: cd server && go test -race -v ./...
 
 workflows:
   golang-workflow:
