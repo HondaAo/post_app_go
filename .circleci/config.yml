@@ -33,6 +33,8 @@ jobs:
     parameters:
       go-version:
         type: string
+      golangci-lint-version:
+        type: string
 
     executor:
       name: build
