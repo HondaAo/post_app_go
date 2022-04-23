@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: cd server && go test -race -v ./...
+          command: go test -race -v ./...
 
 workflows:
   golang-workflow:
