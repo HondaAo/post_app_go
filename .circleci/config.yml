@@ -23,7 +23,7 @@ commands:
 
       - save_cache:
           name: Save go modules cache
-          key: go-modules-{{ checksum "go.sum" }}
+          key: go-modules-{{ checksum "server/go.sum" }}
           paths:
             - "/go/pkg/mod"
 
