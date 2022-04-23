@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "jest": "jest --env=node --watchAll"
+    "jest": "jest --watchAll"
   },
   "dependencies": {
     "axios": "^0.26.1",

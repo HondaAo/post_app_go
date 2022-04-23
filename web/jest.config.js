@@ -9,8 +9,7 @@ const customJestConfig = {
     "^@/components/(.*)$": "<rootDir>/components/$1",
     "^@/pages/(.*)$": "<rootDir>/pages/$1",
   },
-  testEnvironment: "node",
-  setupTestFrameworkScriptFile: "jest_setup.js",
+  testEnvironment: 'jsdom',
 };
 
 module.exports = createJestConfig(customJestConfig);

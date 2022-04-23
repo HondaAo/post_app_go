@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { Sample } from "../Sample";
 import { render } from "@testing-library/react";
 
